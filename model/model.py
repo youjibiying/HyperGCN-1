@@ -97,10 +97,14 @@ def initialise(dataset, args):
     """
     
     HyperGCN = {}
-    V, E = dataset['n'], dataset['hypergraph']
+    V, E = dataset['n'], dataset['hypergraph'] # V : 2708  E: dict
     X, Y = dataset['features'], dataset['labels']
+    # H = np.zeros((V, len(E)))
+    # for i, (a, p) in enumerate(E.items()):
+    #     H[p, i] = 1
 
     # hypergcn and optimiser
+
     args.d, args.c = X.shape[1], Y.shape[1]
     hypergcn = networks.HyperGCN(V, E, X, args)
     optimiser = optim.Adam(list(hypergcn.parameters()), lr=args.rate, weight_decay=args.decay)

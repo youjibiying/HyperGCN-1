@@ -18,7 +18,7 @@ def load(args):
     with open(file, 'rb') as H: 
         Splits = pickle.load(H)
         train, test = Splits['train'], Splits['test']
-
+    # dataset['labels']=np.argmax(dataset['labels'], axis=1)
     return dataset, train, test
 
 
@@ -37,8 +37,9 @@ class parser(object):
         dataset: cora/dblp/acm for coauthorship and cora/citeseer/pubmed for cocitation
         """
         
-        current = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-        self.d = os.path.join(current, data, dataset)
+        current = os.path.abspath(inspect.getfile(inspect.currentframe()))
+        Dir, _ = os.path.split(current)
+        self.d = os.path.join(Dir, data, dataset)
         self.data, self.dataset = data, dataset
 
     
